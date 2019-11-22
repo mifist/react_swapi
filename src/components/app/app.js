@@ -32,7 +32,7 @@ export default class App extends Component {
             <div className="main-app">
                 <AppHeader title="Header" />
                 <main>{ this.getApi() }</main>
-                <AppFooter copyright="This is footer copyright" />
+                <AppFooter copyright="Created by Mifist" />
             </div> 
         );
     }
