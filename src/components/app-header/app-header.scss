@@ -2,6 +2,25 @@
     width: 100%;
     margin-bottom: 3%;
 }
-.list-header {
-    margin-top: 5%;
+.navbar-brand {
+    border: none;
+    margin-right: 5%;
+}
+.navbar {
+    .nav-item {
+        &:not(:last-child) {
+            margin-right: 10%;
+        }
+        .nav-link {
+            color: #94fffa;
+            border: none;
+            padding: 10px 15px;
+        }
+        &.active {
+            .nav-link {
+                border: none;
+            }
+        }
+    }
+    
 }
