@@ -14,24 +14,6 @@ import StarshipDetails from '../starship-details';
 
 export default class App extends Component {
 
-    gerResorse = async (url, headers) => {
-        const res = await fetch(url, headers)
-        if (!res.ok) {
-            throw new Error(`Could not fetch ${url}, received ${res.status}`)
-        }
-        return await res.json();
-    } 
-    getApi() {
-        const url ='https://swapi.co/api/people/1/';
-        this.gerResorse(url)
-        .then((body) => {
-            console.log({body})
-        })
-        .catch((err) => {
-            console.error('Could not fetch', err)
-        })
-    }
-
     render() {
         return (
             <div className="main-app">
@@ -39,15 +21,13 @@ export default class App extends Component {
                 <RandomPlanet />
                 <main className="container">
                     <div className="row">
-                        <div className="col-md-6">
+                        <div className="col-md-4">
                             <ItemList />
                         </div>
-                        <div className="col-md-6">
-                            <div>{ this.getApi() }</div>
+                        <div className="col-md-8">
                             <PersonDetails />
                             <PlanetDetails />
                             <StarshipDetails />
-                            
                         </div>
                     </div>
                 </main>

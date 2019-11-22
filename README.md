@@ -1,4 +1,5 @@
 ### Test project wich on https://swapi.co/
+### Test project wich on https://starwars-visualguide.com/
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
