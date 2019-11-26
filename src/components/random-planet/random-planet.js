@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 import './random-planet.scss';
 /* Services */
 import SwapiService from '../../services/swapi-service';
+/* Components */
+import Spinner from '../spinner';
+import ErrorIndicator from '../error-indicator';
 
 
 export default class RandomPlanet extends Component {
@@ -11,66 +14,99 @@ export default class RandomPlanet extends Component {
     swapiService = new SwapiService()
 
     state = { 
-        id: null,
-        name: null,
-        population: null,
-        rotationPeriod: null,
-        diameter: null
+        planet: {},
+        loading: true,
+        error: false
     }
 
     constructor() {
         super();
         this.updatePlanet();
+        this.interval = setInterval(this.updatePlanet, 3000);
+        // clearInterval(this.interval);
     }
 
-    updatePlanet() {
-        const id = Math.floor(Math.random()*25+2);
-        this.swapiService
-        .getPlanet(id)
-        .then((planet) => {
-            this.setState({
-                id,
-                name: planet.name,
-                population: planet.population,
-                rotationPeriod: planet.rotation_period,
-                diameter: planet.diameter
-            })
+    onPlanetLoaded = (planet) => {
+        this.setState({
+            planet,
+            loading: false,
+            error: false
         })
     }
 
+    onError = (err) => {
+        this.setState({
+            error: true,
+            loading: false
+        })
+    }
+
+    updatePlanet = () => {
+        console.log('update')
+        const id = Math.floor(Math.random()*17) + 2;
+        this.swapiService
+        .getPlanet(id)
+        .then(this.onPlanetLoaded)
+        .catch(this.onError)
+    }
+
     render() {
-        const { id, name, population, rotationPeriod, diameter } = this.state
+        const { planet, loading, error } = this.state
+
+        const  hasData = !(loading || error)
+
+        const errorMsg = error ? <ErrorIndicator /> : null
+        const spinner = loading ? <Spinner /> : null
+        const content = hasData ? <PlanetView planet={ planet } /> : null
 
         return (
             <div className="random-planet jumbotron">
                 <div className="container">
                     <div className="row">
-                        <div className="col-lg-4">
-                            <div className="preview-image">
-                                <img  alt={name} 
-                                    src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}  />
-                            </div>
-                        </div>
-                        <div className="col-lg-8">
-                            <h3 className="display-5">{name}</h3>
-                            <ul>
-                                <li>
-                                    <span className="term">Population</span>
-                                    <span>{ population }</span>
-                                </li>
-                                <li>
-                                    <span className="term">Rotation period</span>
-                                    <span>{ rotationPeriod }</span>
-                                </li>
-                                <li>
-                                    <span className="term">Diameter</span>
-                                    <span>{ diameter }</span>
-                                </li>
-                            </ul>
-                        </div>
+                        { errorMsg }
+                        { spinner }
+                        { content }
                     </div>
                 </div>
             </div>
         );
     }
+}
+
+const PlanetView = ({ planet }) => {
+    const numberFormat = (value) => {
+        return new Intl.NumberFormat('ru').format(value);
+    }
+    const { id, name, population, rotationPeriod, diameter, climate } = planet
+    return (
+        <React.Fragment>
+            <div className="col-lg-4">
+                    <div className="preview-image">
+                        <img  alt={name} 
+                            src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}  />
+                    </div>
+                </div>
+                <div className="col-lg-8">
+                    <h3 className="display-5">{name}</h3>
+                    <ul>
+                        <li>
+                            <span className="term">Population</span>
+                            <span>{  numberFormat(population) }</span>
+                        </li>
+                        <li>
+                            <span className="term">Rotation period</span>
+                            <span>{ rotationPeriod }</span>
+                        </li>
+                        <li>
+                            <span className="term">Diameter</span>
+                            <span>{ `${numberFormat(diameter)} км` }</span>
+                        </li> 
+                        <li>
+                            <span className="term">Climate</span>
+                            <span>{ climate }</span>
+                        </li>
+                    </ul>
+                </div>
+        </React.Fragment>
+    );
 }

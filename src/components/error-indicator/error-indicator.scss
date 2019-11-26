@@ -1,0 +1,21 @@
+$red: #ee5f5b;
+
+.error-indicator {
+    background: transparent;
+    text-align: center;
+    font-size: 1rem;
+    * {
+        color: $red;
+    }
+    img {
+        display: block;
+        margin: 0 auto;
+        margin-bottom: 15px;
+        max-width: 75px;
+    }
+    .boom {
+        text-transform: uppercase;
+        margin-bottom: 5px;
+        font-size: 1.2rem;
+    }
+}
