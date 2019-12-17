@@ -1,3 +1,12 @@
 .item-list {
     margin-bottom: 3rem;
 }
+.person-item {
+    transition: all .3s;
+    &.active,
+    &:hover,
+    &:focus {
+        cursor: pointer;
+        color: #94fffa;
+    }
+}

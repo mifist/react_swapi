@@ -8,13 +8,20 @@ import AppFooter from '../app-footer';
 import PersonDetails from '../person-details';
 import ItemList from '../item-list';
 import RandomPlanet from '../random-planet';
+import ErrorIndicator from '../error-indicator';
 
 
 export default class App extends Component {
 
     state = {
         showRandomPlanet: true,
-        selectedPerson: 5
+        selectedPerson: 5,
+        hasError: false // true
+    }
+
+    componentDidCatch(error, info) {
+        console.log('componentDidCatch()')
+        this.setState({ hasError: true })
     }
 
     toggleRandomPlanet = () => {
@@ -32,7 +39,12 @@ export default class App extends Component {
     }
 
     render() {
-        const { showRandomPlanet } = this.state;
+
+        if( this.state.hasError ) {
+            return <ErrorIndicator />
+        }
+
+        const { showRandomPlanet, selectedPerson } = this.state;
         const planet = showRandomPlanet ? <RandomPlanet/> : null
 
         return (
@@ -48,10 +60,10 @@ export default class App extends Component {
                 <main className="container">
                     <div className="row">
                         <div className="col-md-4">
-                            <ItemList />
+                            <ItemList onPersonSelected={ this.onPersonSelected } />
                         </div>
                         <div className="col-md-8">
-                            <PersonDetails />
+                            <PersonDetails personId={ selectedPerson } />
                         </div>
                     </div>
                 </main>
