@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 /* Style */
 import './people-page.scss';
 /* Services */
-//import SwapiService from '../../services/swapi-service';
+import SwapiService from '../../services/swapi-service';
 /* Components */
 import ErrorIndicator from '../error-indicator';
 import ItemList from '../item-list'
@@ -11,7 +11,7 @@ import PersonDetails from '../person-details';
 
 export default class PeoplePage extends Component {
 
-    //swapiService = new SwapiService()
+    swapiService = new SwapiService()
 
     state = {
         selectedPerson: 5,
@@ -42,7 +42,11 @@ export default class PeoplePage extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-4">
-                            <ItemList onPersonSelected={ this.onPersonSelected } />
+                            <ItemList 
+                                onItemSelected={ this.onPersonSelected } 
+                                getData={ this.swapiService.getAllPeople }
+                                renderItem={ ({name, gender, birthYear}) => `${name} (${gender} - ${birthYear})` }
+                            />
                         </div>
                         <div className="col-md-8">
                             <PersonDetails personId={ selectedPerson } />

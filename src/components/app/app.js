@@ -10,8 +10,8 @@ import ErrorButton from '../error-button';
 //---------
 import RandomPlanet from '../random-planet';
 import PeoplePage from '../people-page';
-
-
+import PlanetsPage from '../planets-page';
+import StarshipPage from '../starship-page/starship-page';
 
 
 export default class App extends Component {
@@ -55,7 +55,8 @@ export default class App extends Component {
                 </div>
                 <main className="main-body">
                     <PeoplePage />
-                    <PeoplePage />
+                    <PlanetsPage />
+                    <StarshipPage />
                 </main>
                 <AppFooter copyright="Created by Mifist" />
             </div> 

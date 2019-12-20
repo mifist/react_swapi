@@ -48,8 +48,8 @@ export default class PersonDetails extends Component {
     }
 
     render() {
-
-        if( !this.state.person ) {
+        const { person } = this.state;
+        if( !person ) {
             return <span> Select a person from a list on left. </span>
         }
         
@@ -61,14 +61,14 @@ export default class PersonDetails extends Component {
             id, 
             name, 
             gender,
-            birth_year,
-            eye_color,
-            hair_color,
-            skin_color,
+            birthYear,
+            eyeColor,
+            hairColor,
+            skinColor,
             height,
             homeworld,
             mass 
-        } = this.state.person
+        } = person
 
 
         return (
@@ -84,14 +84,14 @@ export default class PersonDetails extends Component {
                 <div className="col-lg-6">
                     <h3 className="display-5">{ name }</h3>
                     <ul>
-                        <li>gender: { gender }</li>
-                        <li>birth year: { birth_year }</li>
-                        <li>eye color: { eye_color }</li>
-                        <li>hair color: { hair_color }</li>
-                        <li>skin color: { skin_color }</li>
-                        <li>height: { height }</li>
-                        <li>homeworld: { homeworld }</li>
-                        <li>mass: { mass }</li>
+                        <li>Gender : { gender }</li>
+                        <li>Birth year : { birthYear }</li>
+                        <li>Eye color : { eyeColor }</li>
+                        <li>Hair color : { hairColor }</li>
+                        <li>Skin color : { skinColor }</li>
+                        <li>Height : { height }</li>
+                        <li>Homeworld : { homeworld }</li>
+                        <li>Mass : { mass }</li>
                     </ul>
                 </div>
                 <ErrorButton />
