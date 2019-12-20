@@ -5,7 +5,7 @@ import './starship-page.scss';
 /* Services */
 import SwapiService from '../../services/swapi-service';
 /* Components */
-import ErrorIndicator from '../error-indicator';
+import ErrorBoundry from '../error-boundry';
 import Row from '../row';
 import ItemList from '../item-list'
 import StarshipDetails from '../starship-details';
@@ -16,14 +16,10 @@ export default class StarshipPage extends Component {
     swapiService = new SwapiService()
 
     state = {
-        selectedStarship: 5,
-        hasError: false // true
+        selectedStarship: 5
     }
 
-    componentDidCatch(error, info) {
-        console.log('PeoplePage - componentDidCatch()')
-        this.setState({ hasError: true })
-    }
+   
 
     onStarshipSelected = (id) => {
         this.setState({
@@ -32,38 +28,33 @@ export default class StarshipPage extends Component {
     }
 
     render() {
-
-        if( this.state.hasError ) {
-            return <ErrorIndicator />
-        }
-
         const { selectedStarship } = this.state;
-
-        const itemList = (
-            <ItemList 
-                onItemSelected={ this.onPersonSelected } 
-                getData={ this.swapiService.getAllPeople }
-            >
-                {(i) => (
-                    <span>
-                        {i.name}
-                        <span className="list-details">
-                           some
-                        </span>
-                    </span>
-                )}
-            </ ItemList>
-        )
 
         return (
             <div className="starship-page">
                <div className="container">
-                    <Row 
-                        left={ itemList } 
-                        right={ 
-                            <StarshipDetails shipId={ selectedStarship } /> 
-                        } 
-                    />
+                    <ErrorBoundry>
+                        <Row 
+                            left={ 
+                                <ItemList 
+                                    onItemSelected={ this.onPersonSelected } 
+                                    getData={ this.swapiService.getAllPeople }
+                                >
+                                    {(i) => (
+                                        <span>
+                                            {i.name}
+                                            <span className="list-details">
+                                            some
+                                            </span>
+                                        </span>
+                                    )}
+                                </ ItemList>
+                            } 
+                            right={ 
+                                <StarshipDetails shipId={ selectedStarship } /> 
+                            } 
+                        />
+                    </ErrorBoundry>
                 </div>
             </div>
         );
