@@ -6,6 +6,7 @@ import './starship-page.scss';
 import SwapiService from '../../services/swapi-service';
 /* Components */
 import ErrorIndicator from '../error-indicator';
+import Row from '../row';
 import ItemList from '../item-list'
 import StarshipDetails from '../starship-details';
 
@@ -38,21 +39,28 @@ export default class StarshipPage extends Component {
 
         const { selectedStarship } = this.state;
 
+        const itemList = (
+            <ItemList 
+                onItemSelected={ this.onPersonSelected } 
+                getData={ this.swapiService.getAllPeople }
+                renderItem={ ({name}) => (
+                    <span>
+                        {name}
+                        <span className="list-details">some</span>
+                    </span>
+                ) }
+            />
+        )
+
         return (
             <div className="starship-page">
                <div className="container">
-                    <div className="row">
-                        <div className="col-md-4">
-                            <ItemList 
-                                onItemSelected={ this.onStarshipSelected } 
-                                getData={ this.swapiService.getAllStarships }
-                                renderItem={ (item) => item.name }
-                            />
-                        </div>
-                        <div className="col-md-8">
-                            <StarshipDetails shipId={ selectedStarship } />
-                        </div>
-                    </div>
+                    <Row 
+                        left={ itemList } 
+                        right={ 
+                            <StarshipDetails shipId={ selectedStarship } /> 
+                        } 
+                    />
                 </div>
             </div>
         );

@@ -3,6 +3,12 @@
 }
 .list-item {
     transition: all .3s;
+    .list-details {
+        font-size: 12px;
+        font-style: italic;
+        opacity: .7;
+        margin-left: 15px;
+    }
     &.active,
     &:hover,
     &:focus {

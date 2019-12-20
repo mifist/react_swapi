@@ -6,6 +6,7 @@ import './people-page.scss';
 import SwapiService from '../../services/swapi-service';
 /* Components */
 import ErrorIndicator from '../error-indicator';
+import Row from '../row';
 import ItemList from '../item-list'
 import PersonDetails from '../person-details';
 
@@ -37,21 +38,28 @@ export default class PeoplePage extends Component {
 
         const { selectedPerson } = this.state;
 
+        const itemList = (
+            <ItemList 
+                onItemSelected={ this.onPersonSelected } 
+                getData={ this.swapiService.getAllPeople }
+                renderItem={ ({name, gender, birthYear}) => (
+                    <span>
+                        {name}
+                        <span className="list-details">{ `${gender}, ${birthYear}` }</span>
+                    </span>
+                ) }
+            />
+        )
+
         return (
             <div className="people-page">
                 <div className="container">
-                    <div className="row">
-                        <div className="col-md-4">
-                            <ItemList 
-                                onItemSelected={ this.onPersonSelected } 
-                                getData={ this.swapiService.getAllPeople }
-                                renderItem={ ({name, gender, birthYear}) => `${name} (${gender} - ${birthYear})` }
-                            />
-                        </div>
-                        <div className="col-md-8">
-                            <PersonDetails personId={ selectedPerson } />
-                        </div>
-                    </div>
+                    <Row 
+                        left={ itemList } 
+                        right={ 
+                            <PersonDetails personId={ selectedPerson } /> 
+                        } 
+                    />
                 </div>
             </div>
         );
