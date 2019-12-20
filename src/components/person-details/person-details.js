@@ -6,7 +6,7 @@ import './person-details.scss';
 import SwapiService from '../../services/swapi-service';
 /* Components */
 import Spinner from '../spinner';
-
+import ErrorButton from '../error-button';
 
 export default class PersonDetails extends Component {
 
@@ -94,7 +94,7 @@ export default class PersonDetails extends Component {
                         <li>mass: { mass }</li>
                     </ul>
                 </div>
-                
+                <ErrorButton />
             </div>
         );
     }
