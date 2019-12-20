@@ -26,29 +26,30 @@ export default class PlanetsPage extends Component {
     }
 
     render() {
-
         const { selectedPlanet } = this.state;
+
+        const itemList = (
+            <ItemList 
+                onItemSelected={ this.onPersonSelected } 
+                getData={ this.swapiService.getAllPeople }
+            >
+                {(i) => (
+                    <span>
+                        {i.name}
+                        <span className="list-details">
+                        some
+                        </span>
+                    </span>
+                )}
+            </ ItemList>
+        )
 
         return (
             <div className="planets-page">
                <div className="container">
                    <ErrorBoundry>
                         <Row 
-                            left={ 
-                                <ItemList 
-                                    onItemSelected={ this.onPersonSelected } 
-                                    getData={ this.swapiService.getAllPeople }
-                                >
-                                    {(i) => (
-                                        <span>
-                                            {i.name}
-                                            <span className="list-details">
-                                            some
-                                            </span>
-                                        </span>
-                                    )}
-                                </ ItemList>
-                             } 
+                            left={ itemList } 
                             right={ 
                                 <PlanetDetails planetId={ selectedPlanet } /> 
                             } 

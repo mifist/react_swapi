@@ -19,8 +19,6 @@ export default class StarshipPage extends Component {
         selectedStarship: 5
     }
 
-   
-
     onStarshipSelected = (id) => {
         this.setState({
             selectedStarship: id
@@ -30,26 +28,28 @@ export default class StarshipPage extends Component {
     render() {
         const { selectedStarship } = this.state;
 
+        const itemList = (
+            <ItemList 
+                onItemSelected={ this.onPersonSelected } 
+                getData={ this.swapiService.getAllPeople }
+            >
+                {(i) => (
+                    <span>
+                        {i.name}
+                        <span className="list-details">
+                        some
+                        </span>
+                    </span>
+                )}
+            </ ItemList>
+        )
+
         return (
             <div className="starship-page">
                <div className="container">
                     <ErrorBoundry>
                         <Row 
-                            left={ 
-                                <ItemList 
-                                    onItemSelected={ this.onPersonSelected } 
-                                    getData={ this.swapiService.getAllPeople }
-                                >
-                                    {(i) => (
-                                        <span>
-                                            {i.name}
-                                            <span className="list-details">
-                                            some
-                                            </span>
-                                        </span>
-                                    )}
-                                </ ItemList>
-                            } 
+                            left={ itemList } 
                             right={ 
                                 <StarshipDetails shipId={ selectedStarship } /> 
                             } 

@@ -8,7 +8,9 @@ import SwapiService from '../../services/swapi-service';
 import ErrorBoundry from '../error-boundry';
 import Row from '../row';
 import ItemList from '../item-list'
-import PersonDetails from '../person-details';
+import ItemListDetails from '../item-list-details'
+
+
 
 export default class PeoplePage extends Component {
 
@@ -18,11 +20,6 @@ export default class PeoplePage extends Component {
         selectedPerson: 5
     }
 
-    componentDidCatch(error, info) {
-        console.log('PeoplePage - componentDidCatch()')
-        this.setState({ hasError: true })
-    }
-
     onPersonSelected = (id) => {
         this.setState({
             selectedPerson: id
@@ -30,31 +27,37 @@ export default class PeoplePage extends Component {
     }
 
     render() {
-
         const { selectedPerson } = this.state;
+        const { getAllPeople, getPerson, getPersonImage } = this.swapiService
+
+        const itemList = (
+            <ItemList 
+                onItemSelected={ this.onPersonSelected } 
+                getData={ getAllPeople }
+            >
+                {(i) => (
+                    <span>
+                        {i.name}
+                        <span className="list-details">
+                            { `${i.gender}, ${i.birthYear}` }
+                        </span>
+                    </span>
+                )}
+            </ ItemList>
+        )
 
         return (
             <div className="people-page">
                 <div className="container">
                     <ErrorBoundry>
                         <Row 
-                            left={ 
-                                <ItemList 
-                                    onItemSelected={ this.onPersonSelected } 
-                                    getData={ this.swapiService.getAllPeople }
-                                >
-                                    {(i) => (
-                                        <span>
-                                            {i.name}
-                                            <span className="list-details">
-                                                { `${i.gender}, ${i.birthYear}` }
-                                            </span>
-                                        </span>
-                                    )}
-                                </ ItemList>
-                            } 
+                            left={ itemList } 
                             right={ 
-                                <PersonDetails personId={ selectedPerson } /> 
+                                <ItemListDetails 
+                                    itemId={ selectedPerson } 
+                                    getData={ getPerson }
+                                    getImageUrl={ getPersonImage }
+                                /> 
                             } 
                         />
                     </ErrorBoundry>
