@@ -43,13 +43,16 @@ export default class StarshipPage extends Component {
             <ItemList 
                 onItemSelected={ this.onPersonSelected } 
                 getData={ this.swapiService.getAllPeople }
-                renderItem={ ({name}) => (
+            >
+                {(i) => (
                     <span>
-                        {name}
-                        <span className="list-details">some</span>
+                        {i.name}
+                        <span className="list-details">
+                           some
+                        </span>
                     </span>
-                ) }
-            />
+                )}
+            </ ItemList>
         )
 
         return (
