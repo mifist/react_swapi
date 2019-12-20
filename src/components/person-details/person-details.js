@@ -29,11 +29,13 @@ export default class PersonDetails extends Component {
 
     updatePerson() {
         const { personId } = this.props
-        console.log({personId})
+        
         if( !personId ) {
             return
         }
-
+        this.setState({ 
+            loading: true,
+        })
         this.swapiServise
             .getPerson(personId)
             .then((person) => {
