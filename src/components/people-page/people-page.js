@@ -8,8 +8,7 @@ import SwapiService from '../../services/swapi-service';
 import ErrorBoundry from '../error-boundry';
 import Row from '../row';
 import ItemList from '../item-list'
-import ItemListDetails from '../item-list-details'
-
+import ItemListDetails, {Entry} from '../item-list-details'
 
 
 export default class PeoplePage extends Component {
@@ -17,22 +16,22 @@ export default class PeoplePage extends Component {
     swapiService = new SwapiService()
 
     state = {
-        selectedPerson: 5
+        selectedItemList: 5
     }
 
-    onPersonSelected = (id) => {
+    onItemListSelected = (id) => {
         this.setState({
-            selectedPerson: id
+            selectedItemList: id
         })
     }
 
     render() {
-        const { selectedPerson } = this.state;
+        const { selectedItemList } = this.state;
         const { getAllPeople, getPerson, getPersonImage } = this.swapiService
 
         const itemList = (
             <ItemList 
-                onItemSelected={ this.onPersonSelected } 
+                onItemSelected={ this.onItemListSelected } 
                 getData={ getAllPeople }
             >
                 {(i) => (
@@ -54,10 +53,15 @@ export default class PeoplePage extends Component {
                             left={ itemList } 
                             right={ 
                                 <ItemListDetails 
-                                    itemId={ selectedPerson } 
+                                    itemId={ selectedItemList } 
                                     getData={ getPerson }
                                     getImageUrl={ getPersonImage }
-                                /> 
+                                > 
+                                    <Entry field="name" label="Name" />
+                                    <Entry field="name" label="Name" />
+                                    <Entry field="name" label="Name" />
+                                </ItemListDetails>
+                                
                             } 
                         />
                     </ErrorBoundry>

@@ -7,6 +7,18 @@ import './item-list-details.scss';
 import Spinner from '../spinner';
 import ErrorButton from '../error-button';
 
+const Entry = ({item, field, label}) => {
+     return (
+         <li className="entry">
+            <span>{label}</span>
+            <span>{ field }</span>
+         </li>
+     )
+}
+export {
+    Entry
+}
+
 export default class ItemListDetails extends Component {
 
     state = { 
@@ -68,7 +80,7 @@ export default class ItemListDetails extends Component {
             mass 
         } = item
 
-
+console.log(this.props.children)
         return (
             <div key={id} className="row jumbotron item-list-details">
                 <div className="col-lg-6">
@@ -82,14 +94,14 @@ export default class ItemListDetails extends Component {
                 <div className="col-lg-6">
                     <h3 className="display-5">{ name }</h3>
                     <ul>
-                        <li>Gender : { gender }</li>
-                        <li>Birth year : { birthYear }</li>
-                        <li>Eye color : { eyeColor }</li>
-                        <li>Hair color : { hairColor }</li>
-                        <li>Skin color : { skinColor }</li>
-                        <li>Height : { height }</li>
-                        <li>Homeworld : { homeworld }</li>
-                        <li>Mass : { mass }</li>
+                        {
+                           
+                            React.Children.map(  this.props.children, (child, idx) => {
+                                console.log(child.props)
+                            return <span>{child.props.field}</span>
+                            } )
+                        }
+                        
                     </ul>
                 </div>
                 <ErrorButton />
