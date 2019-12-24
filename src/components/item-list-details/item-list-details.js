@@ -98,7 +98,7 @@ console.log(this.props.children)
                            
                             React.Children.map(  this.props.children, (child, idx) => {
                                 console.log(child.props)
-                            return <span>{child.props.field}</span>
+                                return <span>{child.props.field}</span>
                             } )
                         }
                         
