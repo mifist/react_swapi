@@ -13,6 +13,7 @@ export default class SwapiService {
     return await res.json();
   };
 
+  // People
   getAllPeople = async () => {
     const res = await this.getResource(`/people/`);
     return res.results
@@ -25,6 +26,11 @@ export default class SwapiService {
     return this._transformPerson(person);
   };
 
+  getPersonImage = ({id}) => {
+    return `${this._imageBase}/characters/${id}.jpg`
+  };
+
+  // Planets
   getAllPlanets = async () => {
     const res = await this.getResource(`/planets/`);
     return res.results
@@ -37,6 +43,11 @@ export default class SwapiService {
     return this._transformPlanet(planet);
   };
 
+  getPlanetImage = ({id}) => {
+    return `${this._imageBase}/planets/${id}.jpg`
+  };
+
+  // Starships
   getAllStarships = async () => {
     const res = await this.getResource(`/starships/`);
     return res.results
@@ -49,17 +60,29 @@ export default class SwapiService {
     return this._transformStarship(starship);
   };
 
-  getPersonImage = ({id}) => {
-    return `${this._imageBase}/characters/${id}.jpg`
-  };
-
   getStarshipImage = ({id}) => {
     return `${this._imageBase}/starships/${id}.jpg`
   };
 
-  getPlanetImage = ({id}) => {
-    return `${this._imageBase}/planets/${id}.jpg`
+
+  // Vehicles
+  getAllVehicles = async () => {
+    const res = await this.getResource(`/vehicles/`);
+    return res.results
+      .map(this._transformVehicles)
+      .slice(0, 5);
   };
+
+  getVehicle = async (id) => {
+    const vehicle = await this.getResource(`/vehicles/${id}/`);
+    return this._transformVehicles(vehicle);
+  };
+
+  getVehicleImage = ({id}) => {
+    return `${this._imageBase}/vehicles/${id}.jpg`
+  };
+
+ 
 
   _extractId = (item) => {
     const idRegExp = /\/([0-9]*)\/$/;
@@ -86,7 +109,7 @@ export default class SwapiService {
       id: this._extractId(starship),
       name: starship.name,
       model: starship.model,
-      class: starship.vehicle_class,
+      class: starship.starship_class,
       manufacturer: starship.manufacturer,
       length: starship.length,
       costInCredits: starship.cost_in_credits,
@@ -94,7 +117,9 @@ export default class SwapiService {
       passengers: starship.passengers,
       speed: starship.max_atmosphering_speed,
       cargoCapacity: starship.cargo_capacity,
-      consumables: starship.consumables
+      consumables: starship.consumables,
+      hyperdriveRating: starship.hyperdrive_rating,
+      mglt: starship.MGLT
     }
   };
 
@@ -112,4 +137,24 @@ export default class SwapiService {
       mass: person.mass
     }
   }
+
+  _transformVehicles = (vehicle) => {
+    return {
+      id: this._extractId(vehicle),
+      name: vehicle.name,
+      model: vehicle.model,
+      class: vehicle.vehicle_class,
+      manufacturer: vehicle.manufacturer,
+      length: vehicle.length,
+      costInCredits: vehicle.cost_in_credits,
+      crew: vehicle.crew,
+      passengers: vehicle.passengers,
+      speed: vehicle.max_atmosphering_speed,
+      cargoCapacity: vehicle.cargo_capacity,
+      consumables: vehicle.consumables
+    }
+  };
+
+
+
 }

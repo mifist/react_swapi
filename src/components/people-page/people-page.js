@@ -32,6 +32,7 @@ export default class PeoplePage extends Component {
 
         const itemList = (
             <ItemList 
+                listTitle="People"
                 onItemSelected={ this.onItemListSelected } 
                 getData={ getAllPeople }
             >

@@ -38,6 +38,7 @@ export default class StarshipPage extends Component {
 
         const itemList = (
             <ItemList 
+                listTitle="Starships"
                 onItemSelected={ this.onItemListSelected } 
                 getData={ getAllStarships }
             >
@@ -59,7 +60,7 @@ export default class StarshipPage extends Component {
                 getImageUrl={ getStarshipImage }
             > 
                 <Entry field="model" label="Model" />
-                <Entry field="class" label="Class" />
+                <Entry field="class" label="Starship Class" />
                 <Entry field="consumables" label="Consumables" />
                 <Entry field="manufacturer" label="Manufacturer" />
                 <Entry field="length" label="Length" />
@@ -68,6 +69,8 @@ export default class StarshipPage extends Component {
                 <Entry field="passengers" label="Passengers" />
                 <Entry field="speed" label="Speed" />
                 <Entry field="cargoCapacity" label="Cargo Capacity" />
+                <Entry field="hyperdriveRating" label="Hyperdrive Rating" />
+                <Entry field="mglt" label="MGLT" />
             
         
             </ItemListDetails>

@@ -1,7 +1,7 @@
 /* Core */
 import React, { Component } from 'react';
 /* Style */
-import './planets-page.scss';
+import './vehicles-page.scss';
 /* Services */
 import SwapiService from '../../services/swapi-service';
 /* Components */
@@ -11,12 +11,12 @@ import ItemList from '../item-list'
 import ItemListDetails, { Entry } from '../item-list-details'
 
 
-export default class PlanetsPage extends Component {
+export default class VehiclesPage extends Component {
 
     swapiService = new SwapiService()
 
     state = {
-        selectedItemList: 5
+        selectedItemList: 4
     }
 
     onItemListSelected = (id) => {
@@ -26,21 +26,27 @@ export default class PlanetsPage extends Component {
         
     }
 
+    numberFormat = (value) => {
+        return new Intl.NumberFormat('ru').format(value);
+    }
+
     render() {
         const { selectedItemList } = this.state;
-        const { getAllPlanets, getPlanet, getPlanetImage } = this.swapiService
+        const { getAllVehicles, getVehicle, getVehicleImage } = this.swapiService
+
+      
 
         const itemList = (
             <ItemList 
-                listTitle="Planets"
-                onItemSelected={ this.onItemListSelected  } 
-                getData={ getAllPlanets }
+                listTitle="Vehicles"
+                onItemSelected={ this.onItemListSelected } 
+                getData={ getAllVehicles }
             >
                 {(i) => (
                     <span>
                         {i.name}
                         <span className="list-details">
-                            {i.gravity}
+                            { `crew: ${ i.crew }` }
                         </span>
                     </span>
                 )}
@@ -50,26 +56,28 @@ export default class PlanetsPage extends Component {
         const itemDetails = (
             <ItemListDetails 
                 itemId={ selectedItemList } 
-                getData={ getPlanet }
-                getImageUrl={ getPlanetImage }
+                getData={ getVehicle }
+                getImageUrl={ getVehicleImage }
             > 
-                <Entry field="diameter" label="Diameter" />
-                <Entry field="rotationPeriod" label="Rotation Period" />
-                <Entry field="orbitalPeriod" label="Orbital Period" />
-                <Entry field="gravity" label="Gravity" />
-                <Entry field="population" label="Population" />
-                <Entry field="climate" label="Climate" />
-                <Entry field="terrain" label="Terrain" />
-                <Entry field="surfaceWater" label="Surface Water" />
+                <Entry field="model" label="Model" />
+                <Entry field="class" label="Vehicle Class" />
+                <Entry field="consumables" label="Consumables" />
+                <Entry field="manufacturer" label="Manufacturer" />
+                <Entry field="length" label="Length" />
+                <Entry field="costInCredits" label="Cost In Credits" />
+                <Entry field="crew" label="Crew" />
+                <Entry field="passengers" label="Passengers" />
+                <Entry field="speed" label="Speed" />
+                <Entry field="cargoCapacity" label="Cargo Capacity" />
             
         
             </ItemListDetails>
         )
 
         return (
-            <div className="planets-page">
+            <div className="vehicles-page">
                <div className="container">
-                   <ErrorBoundry>
+                    <ErrorBoundry>
                         <Row 
                             left={ itemList } 
                             right={ itemDetails } 

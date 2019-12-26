@@ -42,6 +42,7 @@ export default class ItemList extends Component {
     render() {
 
         const { itemList } = this.state
+        const { listTitle } = this.props
 
         if(!itemList) {
             return <Spinner />
@@ -49,7 +50,7 @@ export default class ItemList extends Component {
        
         return (
             <div className="item-list jumbotron">
-                <h3 className="display-5">ItemList</h3>
+                { listTitle ? <h3 className="display-5">{ listTitle }</h3> : '' } 
                 <ul>
                     { this.renderItems(itemList) }
                 </ul>
