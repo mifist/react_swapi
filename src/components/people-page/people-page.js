@@ -1,14 +1,14 @@
 /* Core */
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 /* Style */
-import './people-page.scss';
+import './people-page.scss'
 /* Services */
-import SwapiService from '../../services/swapi-service';
+import SwapiService from '../../services/swapi-service'
 /* Components */
-import ErrorBoundry from '../error-boundry';
-import Row from '../row';
+import ErrorBoundry from '../error-boundry'
+import Row from '../row'
 import ItemList from '../item-list'
-import ItemListDetails, {Entry} from '../item-list-details'
+import ItemListDetails, { Entry } from '../item-list-details'
 
 
 export default class PeoplePage extends Component {
@@ -23,6 +23,7 @@ export default class PeoplePage extends Component {
         this.setState({
             selectedItemList: id
         })
+        
     }
 
     render() {
@@ -45,24 +46,31 @@ export default class PeoplePage extends Component {
             </ ItemList>
         )
 
+        const itemDetails = (
+            <ItemListDetails 
+                itemId={ selectedItemList } 
+                getData={ getPerson }
+                getImageUrl={ getPersonImage }
+            > 
+                <Entry field="gender" label="Gender" />
+                <Entry field="birthYear" label="Eye Color" />
+                <Entry field="eyeColor" label="Eye Color" />
+                <Entry field="hairColor" label="Hair Color" />
+                <Entry field="skinColor" label="Skin Color" />
+                <Entry field="height" label="Height" />
+                <Entry field="homeworld" label="Homeworld" />
+                <Entry field="mass" label="Mass" />
+        
+            </ItemListDetails>
+        )
+
         return (
             <div className="people-page">
                 <div className="container">
                     <ErrorBoundry>
                         <Row 
                             left={ itemList } 
-                            right={ 
-                                <ItemListDetails 
-                                    itemId={ selectedItemList } 
-                                    getData={ getPerson }
-                                    getImageUrl={ getPersonImage }
-                                > 
-                                    <Entry field="name" label="Name" />
-                                    <Entry field="name" label="Name" />
-                                    <Entry field="name" label="Name" />
-                                </ItemListDetails>
-                                
-                            } 
+                            right={ itemDetails } 
                         />
                     </ErrorBoundry>
                 </div>

@@ -8,7 +8,7 @@ import SwapiService from '../../services/swapi-service';
 import ErrorBoundry from '../error-boundry';
 import Row from '../row';
 import ItemList from '../item-list'
-import PlanetDetails from '../planet-details';
+import ItemListDetails, { Entry } from '../item-list-details'
 
 
 export default class PlanetsPage extends Component {
@@ -16,32 +16,53 @@ export default class PlanetsPage extends Component {
     swapiService = new SwapiService()
 
     state = {
-        selectedPlanet: 5
+        selectedItemList: 5
     }
 
-    onPlanetSelected = (id) => {
+    onItemListSelected = (id) => {
         this.setState({
-            selectedPlanet: id
+            selectedItemList: id
         })
+        
     }
 
     render() {
-        const { selectedPlanet } = this.state;
+        const { selectedItemList } = this.state;
+        const { getAllPlanets, getPlanet, getPlanetImage } = this.swapiService
 
         const itemList = (
             <ItemList 
-                onItemSelected={ this.onPersonSelected } 
-                getData={ this.swapiService.getAllPeople }
+                onItemSelected={ this.onItemListSelected  } 
+                getData={ getAllPlanets }
             >
                 {(i) => (
                     <span>
                         {i.name}
                         <span className="list-details">
-                        some
+                            {i.gravity}
                         </span>
                     </span>
                 )}
             </ ItemList>
+        )
+
+        const itemDetails = (
+            <ItemListDetails 
+                itemId={ selectedItemList } 
+                getData={ getPlanet }
+                getImageUrl={ getPlanetImage }
+            > 
+                <Entry field="diameter" label="Diameter" />
+                <Entry field="rotationPeriod" label="Rotation Period" />
+                <Entry field="orbitalPeriod" label="Orbital Period" />
+                <Entry field="gravity" label="Gravity" />
+                <Entry field="population" label="Population" />
+                <Entry field="climate" label="Climate" />
+                <Entry field="terrain" label="Terrain" />
+                <Entry field="surfaceWater" label="Surface Water" />
+            
+        
+            </ItemListDetails>
         )
 
         return (
@@ -50,9 +71,7 @@ export default class PlanetsPage extends Component {
                    <ErrorBoundry>
                         <Row 
                             left={ itemList } 
-                            right={ 
-                                <PlanetDetails planetId={ selectedPlanet } /> 
-                            } 
+                            right={ itemDetails } 
                         />
                     </ErrorBoundry>
                 </div>

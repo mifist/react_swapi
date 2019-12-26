@@ -8,7 +8,7 @@ import SwapiService from '../../services/swapi-service';
 import ErrorBoundry from '../error-boundry';
 import Row from '../row';
 import ItemList from '../item-list'
-import StarshipDetails from '../starship-details';
+import ItemListDetails, { Entry } from '../item-list-details'
 
 
 export default class StarshipPage extends Component {
@@ -16,32 +16,61 @@ export default class StarshipPage extends Component {
     swapiService = new SwapiService()
 
     state = {
-        selectedStarship: 5
+        selectedItemList: 5
     }
 
-    onStarshipSelected = (id) => {
+    onItemListSelected = (id) => {
         this.setState({
-            selectedStarship: id
+            selectedItemList: id
         })
+        
+    }
+
+    numberFormat = (value) => {
+        return new Intl.NumberFormat('ru').format(value);
     }
 
     render() {
-        const { selectedStarship } = this.state;
+        const { selectedItemList } = this.state;
+        const { getAllStarships, getStarship, getStarshipImage } = this.swapiService
+
+      
 
         const itemList = (
             <ItemList 
-                onItemSelected={ this.onPersonSelected } 
-                getData={ this.swapiService.getAllPeople }
+                onItemSelected={ this.onItemListSelected } 
+                getData={ getAllStarships }
             >
                 {(i) => (
                     <span>
                         {i.name}
                         <span className="list-details">
-                        some
+                            { `crew: ${ i.crew }` }
                         </span>
                     </span>
                 )}
             </ ItemList>
+        )
+
+        const itemDetails = (
+            <ItemListDetails 
+                itemId={ selectedItemList } 
+                getData={ getStarship }
+                getImageUrl={ getStarshipImage }
+            > 
+                <Entry field="model" label="Model" />
+                <Entry field="class" label="Class" />
+                <Entry field="consumables" label="Consumables" />
+                <Entry field="manufacturer" label="Manufacturer" />
+                <Entry field="length" label="Length" />
+                <Entry field="costInCredits" label="Cost In Credits" />
+                <Entry field="crew" label="Crew" />
+                <Entry field="passengers" label="Passengers" />
+                <Entry field="speed" label="Speed" />
+                <Entry field="cargoCapacity" label="Cargo Capacity" />
+            
+        
+            </ItemListDetails>
         )
 
         return (
@@ -50,9 +79,7 @@ export default class StarshipPage extends Component {
                     <ErrorBoundry>
                         <Row 
                             left={ itemList } 
-                            right={ 
-                                <StarshipDetails shipId={ selectedStarship } /> 
-                            } 
+                            right={ itemDetails } 
                         />
                     </ErrorBoundry>
                 </div>
