@@ -8,7 +8,8 @@ import Spinner from '../spinner';
 export default class ItemList extends Component {
 
     state = { 
-        itemList: null
+        itemList: null,
+        active: false,
     }
 
     componentDidMount() {
@@ -23,15 +24,24 @@ export default class ItemList extends Component {
             })
     }
 
+    toggleClass() {
+        const currentState = this.state.active;
+        this.setState({ active: !currentState });
+    };
+
     renderItems(arr) {
         return arr.map((item) => {
             const { id } = item
             const label = this.props.children(item)
-        
+            const activeClass = this.state.active ? `active`: ``;
+
             return (
-                <li className="list-item list-group-item list-group-item-action"
+                <li className={ `list-item list-group-item list-group-item-action ${activeClass}` }
                     key={id}
-                    onClick={ () => this.props.onItemSelected(id) } 
+                    onClick={ () => {
+                        this.props.onItemSelected(id)
+                        this.toggleClass()
+                    } } 
                 >
                     { label }
                 </li>
