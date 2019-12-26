@@ -9,12 +9,11 @@ export default class ItemList extends Component {
 
     state = { 
         itemList: null,
-        active: false,
+        isActive: false,
     }
 
     componentDidMount() {
         const { getData }= this.props
-
 
         getData()
             .then((itemList) => {
@@ -25,18 +24,23 @@ export default class ItemList extends Component {
     }
 
     toggleClass() {
-        const currentState = this.state.active;
-        this.setState({ active: !currentState });
+        this.setState((state) => {
+           return {
+                isActive: !state.isActive
+           }
+        });
     };
 
     renderItems(arr) {
         return arr.map((item) => {
             const { id } = item
+            const { isActive } = this.state
             const label = this.props.children(item)
-            const activeClass = this.state.active ? `active`: ``;
+            
 
             return (
-                <li className={ `list-item list-group-item list-group-item-action ${activeClass}` }
+                <li 
+                    className={ `list-item list-group-item list-group-item-action ${ isActive && 'active' }` }
                     key={id}
                     onClick={ () => {
                         this.props.onItemSelected(id)
