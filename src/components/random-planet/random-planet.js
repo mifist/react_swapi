@@ -74,7 +74,8 @@ const PlanetView = ({ planet }) => {
     const numberFormat = (value) => {
         return new Intl.NumberFormat('ru').format(value);
     }
-    const { id, name, population, rotationPeriod, diameter, climate } = planet
+    const { id, name, population, rotationPeriod, diameter, climate,
+            gravity, terrain, surfaceWater, orbitalPeriod} = planet
     return (
         <React.Fragment>
             <div className="col-lg-4">
@@ -95,12 +96,28 @@ const PlanetView = ({ planet }) => {
                             <span>{ rotationPeriod }</span>
                         </li>
                         <li>
+                            <span className="term">Orbital period</span>
+                            <span>{ orbitalPeriod }</span>
+                        </li>
+                        <li>
                             <span className="term">Diameter</span>
                             <span>{ `${numberFormat(diameter)} км` }</span>
                         </li> 
                         <li>
                             <span className="term">Climate</span>
                             <span>{ climate }</span>
+                        </li>
+                        <li>
+                            <span className="term">Gravity</span>
+                            <span>{ gravity } g</span>
+                        </li>
+                        <li>
+                            <span className="term">Terrain</span>
+                            <span>{ terrain } g</span>
+                        </li>
+                        <li>
+                            <span className="term">Surface Water</span>
+                            <span>{ surfaceWater } g</span>
                         </li>
                     </ul>
                 </div>

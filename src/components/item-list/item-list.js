@@ -29,7 +29,7 @@ export default class ItemList extends Component {
             const label = this.props.children(item)
         
             return (
-                <li className="list-item"
+                <li className="list-item list-group-item list-group-item-action"
                     key={id}
                     onClick={ () => this.props.onItemSelected(id) } 
                 >
@@ -51,7 +51,7 @@ export default class ItemList extends Component {
         return (
             <div className="item-list jumbotron">
                 { listTitle ? <h3 className="display-5">{ listTitle }</h3> : '' } 
-                <ul>
+                <ul className="list-group">
                     { this.renderItems(itemList) }
                 </ul>
             </div>

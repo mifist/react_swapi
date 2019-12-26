@@ -74,26 +74,29 @@ export default class ItemListDetails extends Component {
         const { id, name } = item
 
         return (
-            <div key={id} className="row jumbotron item-list-details">
-                <div className="col-lg-5">
-                    <div className="preview-image">
-                        <img 
-                            alt="PersonDetails" 
-                            src={ image }  
-                        />
+            <div key={id} className="jumbotron item-list-details">
+                <div className="row">
+                    <div className="col-lg-5 p-l-0">
+                        <div className="preview-image">
+                            <img 
+                                alt="PersonDetails" 
+                                src={ image }  
+                            />
+                        </div>
+                        <ErrorButton />
+                    </div>
+                    <div className="col-lg-7">
+                        <h3 className="display-5">{ name }</h3>
+                        <ul>
+                            {
+                                React.Children.map(this.props.children, (child) => {
+                                    return React.cloneElement( child, { item } )
+                                })
+                            }
+                        </ul>
+                      
                     </div>
                 </div>
-                <div className="col-lg-7">
-                    <h3 className="display-5">{ name }</h3>
-                    <ul>
-                        {
-                            React.Children.map(this.props.children, (child) => {
-                                return React.cloneElement( child, { item } )
-                            })
-                        }
-                    </ul>
-                </div>
-                <ErrorButton />
             </div>
         );
     }
