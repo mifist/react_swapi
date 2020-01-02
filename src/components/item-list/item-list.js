@@ -23,7 +23,10 @@ export default class ItemList extends Component {
             })
     }
 
-    toggleClass() {
+    toggleClass = (e, id) => {
+        console.log('значение this:', this);
+        console.log(e.target)
+        console.log(e)
         this.setState((state) => {
            return {
                 isActive: !state.isActive
@@ -42,10 +45,12 @@ export default class ItemList extends Component {
                 <li 
                     className={ `list-item list-group-item list-group-item-action ${ isActive && 'active' }` }
                     key={id}
-                    onClick={ () => {
-                        this.props.onItemSelected(id)
-                        this.toggleClass()
-                    } } 
+                    onClick={ 
+                        (e) => {
+                            this.props.onItemSelected(id)
+                            this.toggleClass(e,id)
+                        } 
+                    } 
                 >
                     { label }
                 </li>
