@@ -31,20 +31,23 @@ export default class PeoplePage extends Component {
         const { getAllPeople, getPerson, getPersonImage } = this.swapiService
 
         const itemList = (
-            <ItemList 
-                listTitle="People"
-                onItemSelected={ this.onItemListSelected } 
-                getData={ getAllPeople }
-            >
-                {(i) => (
-                    <span>
-                        {i.name}
-                        <span className="list-details">
-                            { `${i.gender}, ${i.birthYear}` }
+            <div className="item-list jumbotron">
+                <h3 className="display-5"> People </h3>
+                <ItemList 
+                    onItemSelected={ this.onItemListSelected } 
+                    getData={ getAllPeople }
+                >
+                    {(i) => (
+                        <span>
+                            {i.name}
+                            <span className="list-details">
+                                { `${i.gender}, ${i.birthYear}` }
+                            </span>
                         </span>
-                    </span>
-                )}
-            </ ItemList>
+                    )}
+                </ ItemList>
+            </div>
+           
         )
 
         const itemDetails = (

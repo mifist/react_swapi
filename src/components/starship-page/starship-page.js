@@ -37,20 +37,22 @@ export default class StarshipPage extends Component {
       
 
         const itemList = (
-            <ItemList 
-                listTitle="Starships"
-                onItemSelected={ this.onItemListSelected } 
-                getData={ getAllStarships }
-            >
-                {(i) => (
-                    <span>
-                        {i.name}
-                        <span className="list-details">
-                            { `crew: ${ i.crew }` }
+            <div className="item-list jumbotron">
+                <h3 className="display-5"> Starships </h3>
+                <ItemList 
+                    onItemSelected={ this.onItemListSelected } 
+                    getData={ getAllStarships }
+                >
+                    {(i) => (
+                        <span>
+                            {i.name}
+                            <span className="list-details">
+                                { `crew: ${ i.crew }` }
+                            </span>
                         </span>
-                    </span>
-                )}
-            </ ItemList>
+                    )}
+                </ ItemList>
+            </div>
         )
 
         const itemDetails = (

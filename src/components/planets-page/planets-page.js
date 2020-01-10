@@ -31,20 +31,22 @@ export default class PlanetsPage extends Component {
         const { getAllPlanets, getPlanet, getPlanetImage } = this.swapiService
 
         const itemList = (
-            <ItemList 
-                listTitle="Planets"
-                onItemSelected={ this.onItemListSelected  } 
-                getData={ getAllPlanets }
-            >
-                {(i) => (
-                    <span>
-                        {i.name}
-                        <span className="list-details">
-                            {i.gravity}
+            <div className="item-list jumbotron">
+                <h3 className="display-5"> Planets </h3>
+                <ItemList 
+                    onItemSelected={ this.onItemListSelected  } 
+                    getData={ getAllPlanets }
+                >
+                    {(i) => (
+                        <span>
+                            {i.name}
+                            <span className="list-details">
+                                {i.gravity}
+                            </span>
                         </span>
-                    </span>
-                )}
-            </ ItemList>
+                    )}
+                </ ItemList>
+            </div>
         )
 
         const itemDetails = (
