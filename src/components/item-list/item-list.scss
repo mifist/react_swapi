@@ -1,0 +1,29 @@
+.item-list {
+    margin-bottom: 3rem;
+    ul {
+        margin-left: 0;
+    }
+    h3 {
+        margin-bottom: 20px;
+    }
+}
+.list-item {
+    transition: all .3s;
+    padding-right: 20px;
+    &:after {
+        content: '';
+    }
+    .list-details {
+        font-size: 12px;
+        font-style: italic;
+        opacity: .7;
+        margin-left: 15px;
+    }
+    &.active,
+    &:hover,
+    &:focus {
+        cursor: pointer;
+        color: #94fffa;
+        background: transparent;
+    }
+}
