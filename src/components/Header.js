@@ -2,16 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // get our fontawesome imports
-import {
-  faTwitter,
-  faFacebookSquare,
-  faInstagram,
-} from '@fortawesome/free-brands-svg-icons';
+import { faFilm, faPersonBooth } from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+// cutom icon 
+import falcon_white from 'assets/images/sw-falcon-white.svg';
+import planet_white from 'assets/images/planet-white.svg';
 
-const Header = ({title, bgImage}) => {
+const Header = ({title, logo, bgImage}) => {
   return (
-    <header className='app-header'>
+    <header id='sw-app-header' className='header'>
       <nav
         id='sectionsNav'
         color-on-scroll='100'
@@ -20,7 +19,10 @@ const Header = ({title, bgImage}) => {
         <div className='container'>
           <div className='navbar-translate'>
             <span className='navbar-brand' href={'#'}>
-              {title}
+              {logo
+                ? <img className='logotype' src={logo} alt={title} title={title} />
+                : <span href='/' className='logobrang'>{title}</span>
+              }
             </span>
             <button
               className='navbar-toggler'
@@ -37,7 +39,7 @@ const Header = ({title, bgImage}) => {
           </div>
           <div className='collapse navbar-collapse'>
             <ul className='navbar-nav ml-auto'>
-              <li className='dropdown nav-item'>
+              {/* <li className='dropdown nav-item'>
                 <span
                   href={'#'}
                   data-toggle='dropdown'
@@ -54,59 +56,47 @@ const Header = ({title, bgImage}) => {
                     Documentation
                   </span>
                 </div>
+              </li> */}
+              <li className='nav-item'>
+                <span className='nav-link' href={'#'}>
+                  <FontAwesomeIcon icon={faFilm} />
+                  Episodes
+                </span>
               </li>
               <li className='nav-item'>
                 <span className='nav-link' href={'#'}>
-                  <i className='material-icons'>unarchive</i> Upgrade to PRO
+                  <FontAwesomeIcon icon={faPersonBooth} />
+                  Characters
                 </span>
               </li>
               <li className='nav-item'>
-                <span
-                  className='nav-link'
-                  data-placement='bottom'
-                  href={'#'}
-                  data-original-title='Follow us on Twitter'
-                >
-                  <FontAwesomeIcon icon={faTwitter} />
+                <span className='nav-link' href={'#'}>
+                  <img src={planet_white} alt='Planets' />
+                  Planets
                 </span>
               </li>
               <li className='nav-item'>
-                <span
-                  className='nav-link'
-                  data-placement='bottom'
-                  href={'#'}
-                  data-original-title='Like us on Facebook'
-                >
-                  <FontAwesomeIcon icon={faFacebookSquare} />
-                </span>
-              </li>
-              <li className='nav-item'>
-                <span
-                  className='nav-link'
-                  data-placement='bottom'
-                  href={'#'}
-                  data-original-title='Follow us on Instagram'
-                >
-                  <FontAwesomeIcon icon={faInstagram} />
+                <span className='nav-link' href={'#'}>
+                  <img src={falcon_white} alt='Starships' style={{maxWidth: '27px'}} />
+                  Starships
                 </span>
               </li>
             </ul>
           </div>
         </div>
       </nav>
-      {bgImage && (
-        <div
-          className='page-header header-filter'
-          data-parallax='true'
-          style={{backgroundImage: `url(${bgImage})`}}
-        ></div>
-      )}
+      <div
+        className='page-header'
+        data-parallax='true'
+        style={bgImage && {backgroundImage: `url(${bgImage})`}}
+      ></div>
     </header>
   );
 };
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
+  logo: PropTypes.string,
   bgImage: PropTypes.string,
 };
 

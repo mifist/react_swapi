@@ -6,9 +6,9 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 function Footer({createdBy}) {
   return (
-    <footer className='app-footer footer footer-default'>
+    <footer id='sw-app-footer' className='footer footer-default'>
       <div className='container'>
-        <div class='copyright float-right'>
+        <div className='copyright float-right'>
           &copy; 2021, made with <FontAwesomeIcon icon={faHeart} /> by{' '}
           {createdBy} for a better web.
         </div>

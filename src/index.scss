@@ -1,2 +1,5 @@
-@import "./styles/material-kit";
-@import "./styles/App";
+@import "./styles/settings";
+html,
+body {
+  overflow-x: hidden;
+}

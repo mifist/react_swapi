@@ -1,10 +1,70 @@
-.App {
+@import "material-kit";
+@import "settings";
+
+img {
+  width: 100%;
+  height: auto;
+}
+#sw-app {
+  min-height: 100vh;
+  background-color: $broun;
   .page-header {
-    height: 280px;
+    height: 165px;
     background-position: top center;
   }
   .main-raised {
+    padding-top: 15px;
+    padding-bottom: 15px;
     min-height: 200px;
+    background-color: $drak-broun;
+    color: $white;
+    box-shadow: 0 16px 24px 2px rgba(15, 11, 13, .18), 
+                0 6px 30px 5px rgba(15, 11, 13, .18), 
+                0 8px 10px -5px rgba(15, 11, 13, .22);
+  }
+  .footer {
+    color: $light-grey;
+  }
+}
+
+// navigation
+.navbar {
+  .navbar-translate {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .navbar-brand {
+    height: auto;
+    padding: 0;
+    .logotype {
+      max-width: 129px;
+      width: 100%;
+      display: block;
+    }
+    .logobrang {
+      color: $yellow;
+      display: block;
+    }
+  }
+  .navbar-nav {
+    .nav-item {
+      .nav-link {
+        display: flex;
+        align-items: center;
+        line-height: 13px;
+        img,
+        svg:not(:root) {
+          font-size: 24px;
+          margin-right: 10px;
+          max-width: 24px;
+          width: 100%;
+          display: block;
+          height: auto;
+        }
+      }
+    }
   }
 }
 
