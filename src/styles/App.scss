@@ -38,10 +38,12 @@ img {
   .navbar-brand {
     height: auto;
     padding: 0;
+    svg:not(:root),
     .logotype {
       max-width: 129px;
       width: 100%;
       display: block;
+      height: auto;
     }
     .logobrang {
       color: $yellow;
