@@ -9,7 +9,7 @@ function Footer({createdBy}) {
     <footer className='app-footer footer footer-default'>
       <div className='container'>
         <div class='copyright float-right'>
-          &copy; 2021, made with <FontAwesomeIcon icon={faHeart} /> by
+          &copy; 2021, made with <FontAwesomeIcon icon={faHeart} /> by{' '}
           {createdBy} for a better web.
         </div>
       </div>
