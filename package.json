@@ -2,6 +2,10 @@
   "name": "swapi_app",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "14.15.4",
+    "npm": "7.12.x"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-brands-svg-icons": "^5.15.3",
