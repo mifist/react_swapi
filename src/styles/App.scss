@@ -21,9 +21,16 @@ img {
     box-shadow: 0 16px 24px 2px rgba(15, 11, 13, .18), 
                 0 6px 30px 5px rgba(15, 11, 13, .18), 
                 0 8px 10px -5px rgba(15, 11, 13, .22);
+    svg:not(:root) {
+      width: 100%;
+      height: auto;
+    }
   }
   .footer {
     color: $light-grey;
+    margin: 0 30px;
+    position: relative;
+    justify-content: flex-end;
   }
 }
 
@@ -51,22 +58,79 @@ img {
     }
   }
   .navbar-nav {
-    .nav-item {
-      .nav-link {
-        display: flex;
-        align-items: center;
-        line-height: 13px;
-        img,
-        svg:not(:root) {
-          font-size: 24px;
-          margin-right: 10px;
-          max-width: 24px;
-          width: 100%;
-          display: block;
-          height: auto;
+    .nav-link {
+      display: flex;
+      align-items: center;
+      line-height: 13px;
+      img,
+      svg:not(:root) {
+        font-size: 24px;
+        margin-right: 10px;
+        max-width: 24px;
+        width: 100%;
+        display: block;
+        height: auto;
+        color: inherit;
+      }
+    }
+  }
+  .navbar-collapse {
+    &:after {
+      background-color: $broun;
+    }
+    @media (max-width: 991px) {
+      .navbar-nav {
+        .nav-link {
+          color: #fff;
         }
       }
     }
   }
+  &.navbar-dark {
+    background: $broun !important;
+    .navbar-toggler {
+      border: none;
+      color: #fff;
+      .navbar-toggler-icon {
+        background-color: #fff;
+      }
+    }
+    .navbar-nav {
+      .nav-link {
+        color: #fff;
+      }
+    }
+  }
+}
+// open navigation
+.nav-open {
+  .navbar-translate {
+    transform: none;
+  }
+  .navbar-collapse {
+    box-shadow: 0 1px 10px 2px $drak-broun;
+    &:after {
+      background-color: $broun;
+    }
+    @media (max-width: 991px) {
+      .navbar-nav {
+        .nav-link {
+          color: #fff;
+        }
+      }
+    }
+  }
+  .navbar-toggler {
+    &.toggled {
+      transform: translate3d(-160px, 0, 0);
+    }
+  }
 }
 
+
+.ReactQueryDevtools {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 50;
+}

@@ -2,4 +2,27 @@
 html,
 body {
   overflow-x: hidden;
+  background-color: #302d2f;
+}
+body {
+  &::-webkit-scrollbar-track {
+    box-shadow: none;
+		border-radius: 10px;
+		background-color: #0F0B0D;
+	}
+	
+	&::-webkit-scrollbar {
+    box-shadow: none;
+		width: 5px;
+		background-color: #0F0B0D;
+	}
+	
+	&::-webkit-scrollbar-thumb {
+    box-shadow: none;
+		border-radius: 10px;
+		background: #FFE81F;
+	}
+}
+#root {
+  background-color: #302d2f;
 }
