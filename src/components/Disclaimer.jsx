@@ -14,6 +14,8 @@ const disclaimerStyle = {
 
 const disclaimerTitle = {
   marginBottom: '20px',
+  letterSpacing: '.67px',
+  fontWeight: '500',
 };
 
 const Disclaimer = ({title, content}) => {
@@ -22,7 +24,17 @@ const Disclaimer = ({title, content}) => {
       <div className='col-md-12 ml-auto mr-auto'>
         <div style={disclaimerStyle} className='disclaimer'>
           {title && <h1 style={disclaimerTitle}>{title}</h1>}
-          {content && <p>{content}</p>}
+          {content && (
+            <p
+              style={{
+                color: '#D6DEE7',
+                letterSpacing: '.2px',
+                fontSize: '15px',
+              }}
+            >
+              {content}
+            </p>
+          )}
         </div>
       </div>
     </div>

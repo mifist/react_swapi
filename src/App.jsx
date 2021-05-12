@@ -1,4 +1,4 @@
-import {lazy, Suspense, useState} from 'react';
+import {lazy, Suspense} from 'react';
 import {Route} from 'react-router-dom';
 // styles
 import 'styles/App.scss';
@@ -17,7 +17,6 @@ const PlanetsPage = lazy(() => import('pages/PlanetsPage'));
 const StarshipsPage = lazy(() => import('pages/StarshipsPage'));
 
 const App = () => {
-  const [message, setMessage] = useState('');
 
   return (
     <div id='sw-app'>

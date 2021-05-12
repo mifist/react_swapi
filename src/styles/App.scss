@@ -1,3 +1,5 @@
+@import "~slick-carousel/slick/slick.css"; 
+@import "~slick-carousel/slick/slick-theme.css";
 @import "material-kit";
 @import "settings";
 
@@ -127,6 +129,7 @@ img {
   }
 }
 
+// other
 
 .ReactQueryDevtools {
   position: fixed;

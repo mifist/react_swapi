@@ -1,7 +1,5 @@
-import {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import {useState, useEffect, useCallback} from 'react';
 import PropTypes from 'prop-types';
-import { memo } from "react";
 import { NavLink } from "react-router-dom";
 // icons
 import {Planet} from '@styled-icons/boxicons-regular/Planet';
@@ -10,19 +8,8 @@ import {RecentActors} from '@styled-icons/material/RecentActors';
 import {Film} from '@styled-icons/icomoon/Film';
 
 const Header = (props) => {
-  const {color, fixed, absolute, title, logo, bgImage} = props;
+  const {color, title, logo, bgImage, changeColorOnScroll} = props;
   const [mobileOpen, setMobileOpen] = useState(false);
-
-  useEffect(() => {
-    if (props.changeColorOnScroll) {
-      window.addEventListener('scroll', headerColorChange);
-    }
-    return function cleanup() {
-      if (props.changeColorOnScroll) {
-        window.removeEventListener('scroll', headerColorChange);
-      }
-    };
-  }, []);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -42,8 +29,7 @@ const Header = (props) => {
     }
   };
 
-  const headerColorChange = () => {
-    const {color, changeColorOnScroll} = props;
+  const headerColorChange = useCallback(() => {
     const windowsScrollTop = window.pageYOffset;
     if (windowsScrollTop > changeColorOnScroll.height) {
       document.body.getElementsByTagName('header')[0].classList.remove(color);
@@ -70,7 +56,18 @@ const Header = (props) => {
         .getElementsByClassName('sw-app-navbar')[0]
         .classList.remove('navbar-' + changeColorOnScroll.color);
     }
-  };
+  }, [changeColorOnScroll.color, changeColorOnScroll.height, color]);
+
+  useEffect(() => {
+    if (changeColorOnScroll) {
+      window.addEventListener('scroll', headerColorChange);
+    }
+    return function cleanup() {
+      if (changeColorOnScroll) {
+        window.removeEventListener('scroll', headerColorChange);
+      }
+    };
+  }, [changeColorOnScroll, headerColorChange]);
 
   const BrandComponent = ({title, logo}) => (
     <NavLink exact to="/" className='navbar-brand'>
@@ -113,24 +110,6 @@ const Header = (props) => {
             style={{transform: mobileOpen ? 'translateZ(0)' : ''}}
           >
             <ul className='navbar-nav ml-auto'>
-              {/* <li className='dropdown nav-item'>
-                <span
-                  href={'#'}
-                  data-toggle='dropdown'
-                  className='dropdown-toggle nav-link'
-                >
-                  <i className='material-icons'>apps</i> Components
-                </span>
-                <div className='dropdown-menu dropdown-with-icons'>
-                  <span href={'#'} className='dropdown-item'>
-                    <i className='material-icons'>layers</i> All Components
-                  </span>
-                  <span href={'#'} className='dropdown-item'>
-                    <i className='material-icons'>content_paste</i>
-                    Documentation
-                  </span>
-                </div>
-              </li> */}
               <li className='nav-item'>
                 <NavLink exact to="/episodes" className='nav-link'>
                   <Film />
@@ -155,6 +134,24 @@ const Header = (props) => {
                   Starships
                 </NavLink>
               </li>
+                {/* <li className='dropdown nav-item'>
+                <span
+                  href={'#'}
+                  data-toggle='dropdown'
+                  className='dropdown-toggle nav-link'
+                >
+                  <i className='material-icons'>apps</i> Components
+                </span>
+                <div className='dropdown-menu dropdown-with-icons'>
+                  <span href={'#'} className='dropdown-item'>
+                    <i className='material-icons'>layers</i> All Components
+                  </span>
+                  <span href={'#'} className='dropdown-item'>
+                    <i className='material-icons'>content_paste</i>
+                    Documentation
+                  </span>
+                </div>
+              </li> */}
             </ul>
           </div>
         </div>
@@ -180,8 +177,6 @@ Header.propTypes = {
   title: PropTypes.string.isRequired,
   logo: PropTypes.string,
   bgImage: PropTypes.string,
-  fixed: PropTypes.bool,
-  absolute: PropTypes.bool,
   changeColorOnScroll: PropTypes.shape({
     height: PropTypes.number,
     color: PropTypes.oneOf(['transparent', 'white', 'dark']),

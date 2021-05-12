@@ -1,18 +1,8 @@
-// services
-import {useLoadFilms, useFetchFilm} from 'services/swapiService';
-//componetns
-import FullSpinner from 'components/FullSpinner';
-import ErrorIndicator from 'components/ErrorIndicator';
+// componetns
 import Disclaimer from 'components/Disclaimer';
 
 function CharactersPage(props) {
-  const {data: films, isLoading, isError, isSuccess} = useLoadFilms();
-  //const {data: film, isLoading2, isError, isSuccess} = useFetchFilm(1);
-  if (isLoading) return <FullSpinner />;
-  if (isError) return <ErrorIndicator />;
-
-  const filmsOutput = films.map((film) => <h3 key={film.id}>{film.title}</h3>);
-
+  
   return (
     <div className='container'>
       <Disclaimer
