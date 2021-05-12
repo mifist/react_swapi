@@ -1,7 +1,9 @@
 // componetns
 import Disclaimer from 'components/Disclaimer';
+import CharactersList from './components/CharactersList';
 
 function CharactersPage(props) {
+
   
   return (
     <div className='container'>
@@ -11,6 +13,7 @@ function CharactersPage(props) {
       />
       <div className='row'>
         <div className='col-md-12 ml-auto mr-auto'>
+          <CharactersList />
         </div>
       </div>
     </div>
